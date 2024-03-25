@@ -10,22 +10,15 @@ public abstract class State<T>
 
     public State() { }
 
-    public State(int mecanimStateHash)
-    {
-        this.mecanimStateHash = mecanimStateHash;
-    }
+    public State(int mecanimStateHash) { this.mecanimStateHash = mecanimStateHash; }
 
-    public State(string mecanimStateName) : 
-        this(Animator.StringToHash(mecanimStateName))
-    {
-
-    }
+    public State(string mecanimStateName) :
+        this(Animator.StringToHash(mecanimStateName))  {    }
     //상태 설정
     public void SetMachine(StateMachine<T> stateMachine, T context)
     {
         this.stateMachine = stateMachine;
         this.context = context;
-
         OnInitialized(); //초기 설정
     }
 
@@ -40,18 +33,13 @@ public class StateMachine<T>
 {
     private T context;
     public event System.Action OnChangedState;
-
     private State<T> currentState; //현재 상태
     public State<T> CurrentState => currentState;
-
     private State<T> previousState; //이전상태
     public State<T> PreviousState => previousState;
-
     private float elapsedTime = 0.0f; //현재상태 경과 시간
     public float ElapsedTime => elapsedTime;
-
     private Dictionary<System.Type, State<T>> states = new Dictionary<System.Type, State<T>>(); //상태들을 관리할 딕셔너리
-
     public StateMachine(T context, State<T> state)
     {
         this.context = context;
